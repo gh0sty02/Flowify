@@ -9,12 +9,14 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { useMemo } from "react";
 import { useLocalStorage } from "usehooks-ts";
+import NavItem, { Organization } from "./nav-item";
 
 interface sideBarProps {
   storageKey?: string;
 }
 
 const Sidebar = ({ storageKey = "flowify-sidebar-state" }: sideBarProps) => {
+  // returns a obj
   const [expanded, setExpanded] = useLocalStorage<Record<string, any>>(
     storageKey,
     {}
@@ -29,6 +31,7 @@ const Sidebar = ({ storageKey = "flowify-sidebar-state" }: sideBarProps) => {
     },
   });
 
+  // get all expanded accordions in a array (initially they are stored in localstorage as a obj)
   const defaultAccordionValue: string[] = Object.keys(expanded).reduce(
     (acc: string[], key: string) => {
       if (expanded[key]) {
@@ -40,6 +43,7 @@ const Sidebar = ({ storageKey = "flowify-sidebar-state" }: sideBarProps) => {
     []
   );
 
+  // on expanding the accordion, reflect the same in the expanded accordion obj
   const onExpand = (id: string) => {
     setExpanded((curr) => ({ ...curr, [id]: !expanded[id] }));
   };
@@ -74,7 +78,13 @@ const Sidebar = ({ storageKey = "flowify-sidebar-state" }: sideBarProps) => {
         className="space-y-2"
       >
         {userMemberships.data.map(({ organization }) => (
-          <p key={organization.id}>{organization.id}</p>
+          <NavItem
+            key={organization.id}
+            isActive={activeOrganization?.id === organization.id}
+            isExpanded={expanded[organization.id]}
+            organization={organization as Organization}
+            onExpand={onExpand}
+          />
         ))}
       </Accordion>
     </>
