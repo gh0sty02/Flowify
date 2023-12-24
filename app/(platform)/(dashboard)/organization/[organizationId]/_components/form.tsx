@@ -5,8 +5,8 @@ import { useAction } from "@/hooks/use-action";
 import React from "react";
 
 import { useFormState } from "react-dom";
-import { FormInput } from "./form-input";
-import { title } from "process";
+import { FormInput } from "@/components/form/form-input";
+import { FormSubmitButton } from "@/components/form/form-submit";
 
 export const Form = () => {
   const { execute, fieldErrors } = useAction(createBoard, {
@@ -25,8 +25,8 @@ export const Form = () => {
   };
   return (
     <form className="flex gap-x-2" action={onSubmitHandler}>
-      <FormInput errors={fieldErrors} title={title} />
-      <Button type="submit">Create</Button>
+      <FormInput errors={fieldErrors} id="title" label="Board Title" />
+      <FormSubmitButton> Save</FormSubmitButton>
     </form>
   );
 };
