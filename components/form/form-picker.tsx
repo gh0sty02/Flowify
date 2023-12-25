@@ -24,24 +24,25 @@ export const FormPicker = ({ errors, id }: FormPickerProps) => {
 
   // undo this for prod
   //   useEffect(() => {
-  // const fetchImages = async () => {
-  //   try {
-  //     const result = await unsplash.photos.getRandom({
-  //       collectionIds: ["317099"],
-  //       count: 9,
-  //     });
-  //     if (result && result.response) {
-  //       setImages(result.response as Array<Record<string, any>>);
-  //     } else {
-  //       console.error("Failed to get Images from Unsplash");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-  // fetchImages();
+  //     const fetchImages = async () => {
+  //       try {
+  //         const result = await unsplash.photos.getRandom({
+  //           collectionIds: ["317099"],
+  //           count: 9,
+  //         });
+  //         if (result && result.response) {
+  //           setImages(result.response as Array<Record<string, any>>);
+  //         } else {
+  //           console.error("Failed to get Images from Unsplash");
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //         // setImages(defaultImages);
+  //       } finally {
+  //         setIsLoading(false);
+  //       }
+  //     };
+  //     fetchImages();
   //   }, []);
 
   if (isLoading) {
