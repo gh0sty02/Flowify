@@ -28,6 +28,8 @@ export const env = createEnv({
     NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
     NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: z.string(),
     NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: z.string(),
+    NEXT_PUBLIC_UNSPLASH_ACCESS_KEY: z.string(),
+    NEXT_PUBLIC_UNSPLASH_SECRET_KEY: z.string(),
   },
 
   /**
@@ -49,6 +51,10 @@ export const env = createEnv({
     NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL:
       process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
     // NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
+    NEXT_PUBLIC_UNSPLASH_ACCESS_KEY:
+      process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY,
+    NEXT_PUBLIC_UNSPLASH_SECRET_KEY:
+      process.env.NEXT_PUBLIC_UNSPLASH_SECRET_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.

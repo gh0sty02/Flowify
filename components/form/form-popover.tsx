@@ -1,5 +1,5 @@
 "use client";
-import React, { Children } from "react";
+import React, { Children, ElementRef, useRef } from "react";
 import {
   Popover,
   PopoverClose,
@@ -13,6 +13,8 @@ import { FormSubmitButton } from "./form-submit";
 import { createBoard } from "@/actions/create-board";
 import { useAction } from "@/hooks/use-action";
 import { toast } from "sonner";
+import { FormPicker } from "./form-picker";
+import { useRouter } from "next/navigation";
 
 interface FromPopoverProps {
   align?: "center" | "start" | "end";
@@ -27,20 +29,24 @@ export const FormPopover = ({
   side,
   sideOffset,
 }: FromPopoverProps) => {
+  const router = useRouter();
+  const closePopoverButtonRef = useRef<ElementRef<"button">>(null);
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
-      console.log({ data });
       toast.success("Board Created");
+      closePopoverButtonRef.current?.click();
+
+      router.push(`/board/${data.id}`);
     },
     onError: (error) => {
-      console.log({ error });
       toast.error(error);
     },
   });
   const onSubmitHandler = (formData: FormData) => {
     const title = formData.get("title") as string;
+    const image = formData.get("image") as string;
 
-    execute({ title });
+    execute({ title, image });
   };
   return (
     <Popover>
@@ -58,12 +64,14 @@ export const FormPopover = ({
           <Button
             variant="ghost"
             className="absolute top-2 right-2 text-neutral-600 w-auto h-auto p-2"
+            ref={closePopoverButtonRef}
           >
             <X className="h-4 w-4" />
           </Button>
         </PopoverClose>
         <form className="space-y-4" action={onSubmitHandler}>
           <div className="space-y-4">
+            <FormPicker id="image" errors={fieldErrors} />
             <FormInput
               id="title"
               label="Board title"
