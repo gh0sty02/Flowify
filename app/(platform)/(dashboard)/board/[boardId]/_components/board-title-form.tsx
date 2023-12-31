@@ -14,7 +14,7 @@ interface BoardTitleFormProps {
 }
 
 export const BoardTitleForm = ({ board }: BoardTitleFormProps) => {
-  const { execute } = useAction(updateBoard, {
+  const { execute, fieldErrors } = useAction(updateBoard, {
     onSuccess: (board) => {
       toast.success(`Board "${board.title}" updated!`);
       setTitle(board.title);
@@ -48,7 +48,7 @@ export const BoardTitleForm = ({ board }: BoardTitleFormProps) => {
   };
 
   const onSubmit = (formData: FormData) => {
-    const title = formData.get("board-title") as string;
+    const title = formData.get("title") as string;
 
     execute({
       title,
@@ -69,7 +69,7 @@ export const BoardTitleForm = ({ board }: BoardTitleFormProps) => {
       >
         <FormInput
           ref={inputRef}
-          id="board-title"
+          id="title"
           onBlur={onBlur}
           defaultValue={title}
           className="text-lg font-bold px-[7px] py-1 h-7 bg-transparent focus-visible:outline-none focus-visible:ring-transparent border-none"
