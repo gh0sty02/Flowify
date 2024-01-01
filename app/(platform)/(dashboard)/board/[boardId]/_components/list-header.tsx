@@ -8,6 +8,7 @@ import { useEventListener } from "usehooks-ts";
 import { updateList } from "@/actions/update-list";
 import { FormInput } from "@/components/form/form-input";
 import { useAction } from "@/hooks/use-action";
+import { ListOptions } from "./list-options";
 
 interface ListHeaderProps {
   data: List;
@@ -30,6 +31,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
   });
 
   const enableEditing = () => {
+    console.log("editing");
     setIsEditing(true);
     setTimeout(() => {
       inputRef.current?.focus();
@@ -71,10 +73,7 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
   useEventListener("keydown", onKeyDown);
 
   return (
-    <div
-      className="pt-2 px-2 text-sm font-semibold flex items-start justify-between gap-x-2"
-      onClick={enableEditing}
-    >
+    <div className="pt-2 px-2 text-sm font-semibold flex items-start justify-between gap-x-2">
       {isEditing ? (
         <form
           ref={formRef}
@@ -106,10 +105,14 @@ export const ListHeader = ({ data }: ListHeaderProps) => {
           <button type="submit" hidden />
         </form>
       ) : (
-        <div className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent">
+        <div
+          className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent"
+          onClick={enableEditing}
+        >
           {title}
         </div>
       )}
+      <ListOptions list={data} onAddCard={() => {}} />
     </div>
   );
 };
