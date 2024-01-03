@@ -1,9 +1,10 @@
 "use server";
 
 import { auth } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
+
 import { InputType, ReturnType } from "./types";
 import { db } from "@/lib/db";
-import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
 import { CreateCardSchema } from "./schema";
 
@@ -27,6 +28,9 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       where: {
         id: listId,
         boardId,
+        board: {
+          orgId,
+        },
       },
     });
 

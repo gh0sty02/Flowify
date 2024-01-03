@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 
 import { db } from "@/lib/db";
 import { createSafeAction } from "@/lib/create-safe-action";
-
 import { deleteBoardSchema } from "./schema";
 import { InputType, ReturnType } from "./types";
 
