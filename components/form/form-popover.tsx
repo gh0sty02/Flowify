@@ -15,6 +15,7 @@ import { useAction } from "@/hooks/use-action";
 import { toast } from "sonner";
 import { FormPicker } from "./form-picker";
 import { useRouter } from "next/navigation";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 interface FromPopoverProps {
   align?: "center" | "start" | "end";
@@ -30,6 +31,7 @@ export const FormPopover = ({
   sideOffset,
 }: FromPopoverProps) => {
   const router = useRouter();
+  const proModal = useProModal();
   const closePopoverButtonRef = useRef<ElementRef<"button">>(null);
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
@@ -40,6 +42,7 @@ export const FormPopover = ({
     },
     onError: (error) => {
       toast.error(error);
+      proModal.onOpen();
     },
   });
   const onSubmitHandler = (formData: FormData) => {
