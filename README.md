@@ -5,7 +5,7 @@
 <div align="center">
 
  
-  <a href="https://github.com/gh0sty02/flowify">
+  <a href="https://github.com/gh0sty02/flowify" target="_blank">
    <img width="420" alt="image" src="https://github.com/gh0sty02/Flowify/assets/78202013/2c118cd7-49dd-4a14-b3a4-8846162ee9fa">
   </a>
 
