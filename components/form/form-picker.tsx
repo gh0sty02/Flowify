@@ -1,12 +1,14 @@
 "use client";
 
-import { defaultImages } from "@/constants/images";
-import { unsplash } from "@/lib/unsplash";
-import { cn } from "@/lib/utils";
 import { Check, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+
+import { defaultImages } from "@/constants/images";
+import { unsplash } from "@/lib/unsplash";
+import { cn } from "@/lib/utils";
 import { useFormStatus } from "react-dom";
 import { FormErrors } from "./form-errors";
 
@@ -17,33 +19,32 @@ interface FormPickerProps {
 
 export const FormPicker = ({ errors, id }: FormPickerProps) => {
   const { pending } = useFormStatus();
-  const [images, setImages] =
-    useState<Array<Record<string, any>>>(defaultImages);
+  const [images, setImages] = useState<Array<Record<string, any>>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // undo this for prod
-  //   useEffect(() => {
-  //     const fetchImages = async () => {
-  //       try {
-  //         const result = await unsplash.photos.getRandom({
-  //           collectionIds: ["317099"],
-  //           count: 9,
-  //         });
-  //         if (result && result.response) {
-  //           setImages(result.response as Array<Record<string, any>>);
-  //         } else {
-  //           console.error("Failed to get Images from Unsplash");
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //         // setImages(defaultImages);
-  //       } finally {
-  //         setIsLoading(false);
-  //       }
-  //     };
-  //     fetchImages();
-  //   }, []);
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const result = await unsplash.photos.getRandom({
+          collectionIds: ["317099"],
+          count: 9,
+        });
+        if (result && result.response) {
+          setImages(result.response as Array<Record<string, any>>);
+        } else {
+          toast.error("Failed to get Images from Unsplash");
+        }
+      } catch (error) {
+        // if the rate limit of unsplash api, use default images
+        toast.error("Something went wrong");
+        setImages(defaultImages);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchImages();
+  }, []);
 
   if (isLoading) {
     return (
