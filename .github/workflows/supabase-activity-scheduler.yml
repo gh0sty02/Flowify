@@ -43,7 +43,7 @@ jobs:
 
               if (error) throw error;
 
-              console.log('Ping successful:', data);
+              console.log('Ping successful');
             } catch (err) {
               console.error('Error pinging Supabase:', err.message);
               process.exit(1);
