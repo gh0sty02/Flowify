@@ -30,6 +30,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }} # Supabase project URL
           SUPABASE_KEY: ${{ secrets.NEXT_SERVICE_ROLE_KEY }} # Supabase service role key
         run: |
+          node -e "
           (async () => {
             try {
               // Debugging: Log environment variables
