@@ -37,7 +37,7 @@ jobs:
               const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
               const { data, error } = await supabase
-                .from('board') // Replace 'board' with your actual table name
+                .from('Board') // Replace 'board' with your actual table name
                 .select('*')  // Select all columns
                 .limit(10);   // Limit to 10 rows
 
